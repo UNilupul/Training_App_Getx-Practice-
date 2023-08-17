@@ -172,13 +172,101 @@ class _HomePageState extends State<HomePage> {
                                 blurRadius: 16,
                               ),
                             ],
-                          )
+                          ),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
               ),
+              const SizedBox(height: 10),
+              SizedBox(
+                height: 180,
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(top: 60),
+                      width: MediaQuery.of(context).size.width,
+                      height: 120,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          image: const DecorationImage(
+                            image: AssetImage("assets/decoration2.jpg"),
+                            alignment: Alignment.centerLeft,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                                offset: const Offset(8, 10),
+                                blurRadius: 40,
+                                color:
+                                    AppColor.gradiantSecond.withOpacity(0.3)),
+                            BoxShadow(
+                                offset: const Offset(-1, -5),
+                                blurRadius: 40,
+                                color:
+                                    AppColor.gradiantSecond.withOpacity(0.3)),
+                          ]),
+                    ),
+                    Positioned(
+                      left: 1,
+                      right: 140,
+                      bottom: 2,
+                      height: 170,
+                      child: Container(
+                        height: 200,
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.only(bottom: 30),
+                        decoration: const BoxDecoration(
+                          // color: Colors.red.withOpacity(0.2),
+                          image: DecorationImage(
+                            image: AssetImage(
+                              "assets/run_girl.png",
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Positioned(
+                      left: 190,
+                      right: 2,
+                      bottom: 2,
+                      child: Container(
+                        height: 100,
+                        width: double.maxFinite,
+                        margin: const EdgeInsets.only(top: 70),
+                        // color: Colors.greenAccent.withOpacity(0.2),
+                        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "You are doing Great",
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: AppColor.homePageDetails,
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            RichText(
+                              text: TextSpan(
+                                text: "Keep it up \n ",
+                                style: TextStyle(
+                                  color: AppColor.homePagePlanColor,
+                                  fontSize: 16,
+                                ),
+                                children: const [
+                                  TextSpan(text: "stick to your plan")
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              )
             ],
           ),
         ),
