@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:training_app_getx/constance/colors.dart';
 
@@ -9,6 +11,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List info = [];
+
+  _initData() {
+    DefaultAssetBundle.of(context).loadString("json/info.json").then(
+      (value) {
+        info = json.decode(value);
+      },
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -16,9 +34,10 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: AppColor.homePageBackground,
         body: Container(
           padding: const EdgeInsets.only(
-            top: 50,
+            top: 30,
             left: 30,
             right: 30,
+            bottom: 10,
           ),
           child: Column(
             children: [
@@ -82,7 +101,7 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 20),
               Container(
                 width: MediaQuery.of(context).size.width,
-                height: 250,
+                height: 230,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -111,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                     left: 20,
                     top: 25,
                     right: 20,
-                    bottom: 25,
+                    bottom: 5,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,24 +209,23 @@ class _HomePageState extends State<HomePage> {
                       width: MediaQuery.of(context).size.width,
                       height: 120,
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          image: const DecorationImage(
-                            image: AssetImage("assets/decoration2.jpg"),
-                            alignment: Alignment.centerLeft,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                                offset: const Offset(8, 10),
-                                blurRadius: 40,
-                                color:
-                                    AppColor.gradiantSecond.withOpacity(0.3)),
-                            BoxShadow(
-                                offset: const Offset(-1, -5),
-                                blurRadius: 40,
-                                color:
-                                    AppColor.gradiantSecond.withOpacity(0.3)),
-                          ]),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        image: const DecorationImage(
+                          image: AssetImage("assets/decoration2.jpg"),
+                          alignment: Alignment.centerLeft,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                              offset: const Offset(8, 10),
+                              blurRadius: 40,
+                              color: AppColor.gradiantSecond.withOpacity(0.3)),
+                          BoxShadow(
+                              offset: const Offset(-1, -5),
+                              blurRadius: 40,
+                              color: AppColor.gradiantSecond.withOpacity(0.3)),
+                        ],
+                      ),
                     ),
                     Positioned(
                       left: 1,
@@ -219,7 +237,6 @@ class _HomePageState extends State<HomePage> {
                         width: MediaQuery.of(context).size.width,
                         margin: const EdgeInsets.only(bottom: 30),
                         decoration: const BoxDecoration(
-                          // color: Colors.red.withOpacity(0.2),
                           image: DecorationImage(
                             image: AssetImage(
                               "assets/run_girl.png",
@@ -236,8 +253,8 @@ class _HomePageState extends State<HomePage> {
                         height: 100,
                         width: double.maxFinite,
                         margin: const EdgeInsets.only(top: 70),
-                        // color: Colors.greenAccent.withOpacity(0.2),
-                        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               "You are doing Great",
@@ -266,7 +283,119 @@ class _HomePageState extends State<HomePage> {
                     )
                   ],
                 ),
-              )
+              ),
+              const SizedBox(height: 25),
+              Row(
+                children: [
+                  Text(
+                    "Area of Foucs",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w500,
+                      color: AppColor.homePageTitle,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              // Expanded(
+              //   child: ListView.builder(
+              //     itemCount: info.length,
+              //     itemBuilder: (_, i) {
+              //       return Row(
+              //         children: [
+              //           Container(
+              //             height: 170,
+              //             width: 200,
+              //             padding: const EdgeInsets.only(bottom: 5),
+              //             decoration: BoxDecoration(
+              //                 color: Colors.white,
+              //                 borderRadius: BorderRadius.circular(30),
+              //                 image: DecorationImage(
+              //                   image: AssetImage(
+              //                     info[i]["img"],
+              //                   ),
+              //                   scale: 13,
+              //                 ),
+              //                 boxShadow: [
+              //                   BoxShadow(
+              //                       offset: const Offset(5, 5),
+              //                       blurRadius: 5,
+              //                       color: AppColor.gradiantSecond
+              //                           .withOpacity(0.1)),
+              //                   BoxShadow(
+              //                       offset: const Offset(-5, -5),
+              //                       blurRadius: 5,
+              //                       color: AppColor.gradiantSecond
+              //                           .withOpacity(0.1)),
+              //                 ]),
+              //             child: Center(
+              //               child: Align(
+              //                 alignment: Alignment.bottomCenter,
+              //                 child: Text(
+              //                   info[i]["title"],
+              //                   style: TextStyle(
+              //                     fontSize: 20,
+              //                     color: AppColor.homePageDetails,
+              //                   ),
+              //                 ),
+              //               ),
+              //             ),
+              //           ),
+              //         ],
+              //       );
+              //     },
+              //   ),
+              // ),
+              Expanded(
+                child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                  ),
+                  itemCount: info.length,
+                  padding: const EdgeInsets.all(5),
+                  itemBuilder: (_, i) {
+                    return Container(
+                      margin: const EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            offset: const Offset(5, 5),
+                            blurRadius: 10,
+                            color: AppColor.gradiantSecond.withOpacity(0.1),
+                          ),
+                          BoxShadow(
+                            offset: const Offset(-5, -5),
+                            blurRadius: 10,
+                            color: AppColor.gradiantSecond.withOpacity(0.1),
+                          ),
+                        ],
+                        image: DecorationImage(
+                          image: AssetImage(
+                            info[i]["img"],
+                          ),
+                          scale: 13,
+                        ),
+                      ),
+                      child: Center(
+                        child: Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Text(
+                            info[i]["title"],
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: AppColor.homePageDetails,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:training_app_getx/video_info.dart';
 
 import 'home_page.dart';
 
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const VideoInfo(),
     );
   }
 }
